@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MemeIt</string>
+    <string name="share_button">Share</string>
+    <string name="next_button">Next</string>
+</resources>
