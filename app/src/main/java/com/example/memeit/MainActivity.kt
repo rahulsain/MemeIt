@@ -78,16 +78,16 @@ class MainActivity : AppCompatActivity() {
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
     }
 
-    fun shareMeme(view: View) {
-        val intent = Intent(Intent.ACTION_SEND)
-        intent.type = "text/plain"
-        intent.putExtra(
-            Intent.EXTRA_TEXT,
-            "Hey, Checkout this amazing meme I got from reddit $currentImageUrl"
-        )
-        val chooser = Intent.createChooser(intent, "Share this meme using....")
-        startActivity(chooser)
-    }
+//    fun shareMeme(view: View) {
+//        val intent = Intent(Intent.ACTION_SEND)
+//        intent.type = "text/plain"
+//        intent.putExtra(
+//            Intent.EXTRA_TEXT,
+//            "Hey, Checkout this amazing meme I got from reddit $currentImageUrl"
+//        )
+//        val chooser = Intent.createChooser(intent, "Share this meme using....")
+//        startActivity(chooser)
+//    }
 
     fun nextMeme(view: View) {
         loadMeme()
