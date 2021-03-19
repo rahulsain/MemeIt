@@ -2,4 +2,8 @@
     <string name="app_name">MemeIt</string>
     <string name="share_button">Share</string>
     <string name="next_button">Next</string>
+    <string name="swipe_left">Previous Meme</string>
+    <string name="swipe_right">Next Meme</string>
+    <string name="swipe_up">Share Meme</string>
+    <string name="swipe_down">Download Meme</string>
 </resources>
