@@ -29,6 +29,9 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.FileOutputStream
@@ -41,6 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var imageBitMap : Bitmap
     private var previousImageUrl: String? = null
     private var currentImageUrl: String? = null
+    lateinit var mAdView : AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,16 @@ class MainActivity : AppCompatActivity() {
         if (firstStart) {
             showGesture()
         }
+
+        // Initialize the Mobile Ads SDK with an AdMob App ID.
+        MobileAds.initialize(this) {}
+
+        //shows ad
+        mAdView = findViewById(R.id.adView)
+        // Create an ad request.
+        val adRequest = AdRequest.Builder().build()
+        // Start loading the ad in the background.
+        mAdView.loadAd(adRequest)
 
         //listens for gesture made by user
         detector = GestureDetectorCompat(this, DiaryGestureListener())
@@ -103,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                     ): Boolean {
                         imageBitMap = resource
                         progressBar.visibility = View.GONE
+//                        shareButton.visibility = View.GONE
                         shareButton.isEnabled = true
                         shareButton.setOnClickListener {
                             onSwipeTop()

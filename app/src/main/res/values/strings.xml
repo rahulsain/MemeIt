@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MemeIt</string>
     <string name="share_button">Share</string>
-    <string name="next_button">Next</string>
+    <string name="banner_ad">Admob AD Activity</string>
     <string name="swipe_left">Next Meme</string>
     <string name="swipe_right">Previous Meme</string>
     <string name="swipe_up">Share Meme</string>
