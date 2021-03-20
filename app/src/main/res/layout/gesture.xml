@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/background" >
+    android:background="@drawable/black_background" >
 
     <ImageView
         android:id="@+id/swipe_left"
@@ -13,7 +11,8 @@
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
         android:layout_margin="5dp"
-        android:src="@drawable/swipe_left" />
+        android:src="@drawable/swipe_left"
+        android:contentDescription="@string/swipe_left" />
 
     <TextView
         android:id="@+id/swipe_left_text"
@@ -34,7 +33,8 @@
         android:layout_alignParentStart="true"
         android:layout_centerInParent="true"
         android:layout_margin="5dp"
-        android:src="@drawable/swipe_right" />
+        android:src="@drawable/swipe_right"
+        android:contentDescription="@string/swipe_right"/>
 
     <TextView
         android:id="@+id/swipe_left_right"
@@ -54,8 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="80dp"
-        android:src="@drawable/swipe_up" />
+        android:layout_marginBottom="30dp"
+        android:src="@drawable/swipe_up"
+        android:contentDescription="@string/swipe_up"/>
 
     <TextView
         android:id="@+id/swipe_left_up"
@@ -74,8 +75,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/swipe_down" />
+        android:layout_marginTop="10dp"
+        android:src="@drawable/swipe_down"
+        android:contentDescription="@string/swipe_down"/>
 
     <TextView
         android:id="@+id/swipe_left_down"
@@ -87,5 +89,17 @@
         android:text="@string/swipe_down"
         android:textColor="@color/white"
         android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/swipe_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/swipe_up"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="-25dp"
+        android:text="@string/swipe_exit"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
 
 </RelativeLayout>
