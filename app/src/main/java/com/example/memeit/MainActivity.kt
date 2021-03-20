@@ -45,9 +45,34 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //assuming that user run this app first time
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        val firstStart = prefs.getBoolean("firstStart", true)
+
+        //checking via sharedPreferences if this app is being run first time or not
+        if (firstStart) {
+            showGesture()
+        }
+
         //listens for gesture made by user
         detector = GestureDetectorCompat(this, DiaryGestureListener())
         loadMeme()
+    }
+
+    //show One Time Alert Box guiding user about swipes functionality
+    private fun showGesture() {
+        AlertDialog.Builder(this)
+            .setTitle("One Time Dialog")
+            .setMessage("Swipe Left: Next Meme\nSwipe Right: Previous Meme \nSwipe Up: Share Meme \nSwipe Down: Download Meme")
+            .setPositiveButton(
+                "ok"
+            ) { dialog, which -> dialog.dismiss() }
+            .create().show()
+    //this will make the dialog to appear only first launch
+        val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
+        val editor = prefs.edit()
+        editor.putBoolean("firstStart", false)
+        editor.apply()
     }
 
     //calls api to load random meme
