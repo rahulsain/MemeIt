@@ -61,13 +61,7 @@ class MainActivity : AppCompatActivity() {
 
     //show One Time Alert Box guiding user about swipes functionality
     private fun showGesture() {
-        AlertDialog.Builder(this)
-            .setTitle("One Time Dialog")
-            .setMessage("Swipe Left: Next Meme\nSwipe Right: Previous Meme \nSwipe Up: Share Meme \nSwipe Down: Download Meme")
-            .setPositiveButton(
-                "ok"
-            ) { dialog, which -> dialog.dismiss() }
-            .create().show()
+        startActivity(Intent(this@MainActivity, Gesture::class.java))
     //this will make the dialog to appear only first launch
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         val editor = prefs.edit()
@@ -378,8 +372,7 @@ class MainActivity : AppCompatActivity() {
 
     //shows status of the downloading file
     private fun statusMessage(url: String, directory: File, status: Int): String? {
-        var msg = ""
-        msg = when (status) {
+        val msg = when (status) {
             DownloadManager.STATUS_FAILED -> "Download has been failed, please try again"
             DownloadManager.STATUS_PAUSED -> "Paused"
             DownloadManager.STATUS_PENDING -> "Pending"
