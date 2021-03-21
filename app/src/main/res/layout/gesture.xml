@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/black_background" >
+    android:background="@drawable/black_background">
 
     <ImageView
         android:id="@+id/swipe_left"
@@ -11,8 +11,8 @@
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
         android:layout_margin="5dp"
-        android:src="@drawable/swipe_left"
-        android:contentDescription="@string/swipe_left" />
+        android:contentDescription="@string/swipe_left"
+        android:src="@drawable/swipe_left" />
 
     <TextView
         android:id="@+id/swipe_left_text"
@@ -33,8 +33,8 @@
         android:layout_alignParentStart="true"
         android:layout_centerInParent="true"
         android:layout_margin="5dp"
-        android:src="@drawable/swipe_right"
-        android:contentDescription="@string/swipe_right"/>
+        android:contentDescription="@string/swipe_right"
+        android:src="@drawable/swipe_right" />
 
     <TextView
         android:id="@+id/swipe_left_right"
@@ -55,8 +55,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="30dp"
-        android:src="@drawable/swipe_up"
-        android:contentDescription="@string/swipe_up"/>
+        android:contentDescription="@string/swipe_up"
+        android:src="@drawable/swipe_up" />
 
     <TextView
         android:id="@+id/swipe_left_up"
@@ -76,8 +76,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerInParent="true"
         android:layout_marginTop="10dp"
-        android:src="@drawable/swipe_down"
-        android:contentDescription="@string/swipe_down"/>
+        android:contentDescription="@string/swipe_down"
+        android:src="@drawable/swipe_down" />
 
     <TextView
         android:id="@+id/swipe_left_down"

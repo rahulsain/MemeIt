@@ -10,14 +10,14 @@
         android:id="@+id/memeImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/black"
         android:layout_marginBottom="90dp"
+        android:background="@color/black"
+        android:contentDescription="@string/memes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars"
-        android:contentDescription="@string/memes" />
+        tools:srcCompat="@tools:sample/avatars" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -27,21 +27,19 @@
         app:layout_constraintLeft_toLeftOf="@id/memeImageView"
         app:layout_constraintRight_toRightOf="@id/memeImageView"
         app:layout_constraintTop_toTopOf="@id/memeImageView" />
-    
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             ads:adSize="SMART_BANNER"
-            ads:adUnitId="ca-app-pub-2470290877560956/2030293976">
-        </com.google.android.gms.ads.AdView>
+            ads:adUnitId="ca-app-pub-2470290877560956/2030293976" />
 
     </RelativeLayout>
 

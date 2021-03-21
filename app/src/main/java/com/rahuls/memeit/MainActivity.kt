@@ -41,10 +41,10 @@ import kotlin.math.abs
 class MainActivity : AppCompatActivity() {
 
     private lateinit var detector: GestureDetectorCompat
-    private lateinit var imageBitMap : Bitmap
+    private lateinit var imageBitMap: Bitmap
     private var previousImageUrl: String? = null
     private var currentImageUrl: String? = null
-    lateinit var mAdView : AdView
+    lateinit var mAdView: AdView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,13 +70,14 @@ class MainActivity : AppCompatActivity() {
 
         //listens for gesture made by user
         detector = GestureDetectorCompat(this, DiaryGestureListener())
+        //calls the api
         loadMeme()
     }
 
     //show One Time Alert Box guiding user about swipes functionality
     private fun showGesture() {
         startActivity(Intent(this@MainActivity, Gesture::class.java))
-    //this will make the dialog to appear only first launch
+        //this will make the dialog to appear only first launch
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         val editor = prefs.edit()
         editor.putBoolean("firstStart", false)
@@ -143,6 +144,7 @@ class MainActivity : AppCompatActivity() {
             shareImage(this, File(filePath))
         }
     }
+
     //download .png file
     private fun download(bitmap: Bitmap, path: String, finishDownload: () -> Unit) {
         val file = File(path)
@@ -175,6 +177,7 @@ class MainActivity : AppCompatActivity() {
 
         context.startActivity(intentChooser)
     }
+
     //if it is accidental tap then we deny it as a gesture and call our normal onTouch()
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         return if (detector.onTouchEvent(event)) {
@@ -319,8 +322,8 @@ class MainActivity : AppCompatActivity() {
                     currentImageUrl?.let { downloadImage(it) }
                 }
 //                else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+                // permission denied, boo! Disable the
+                // functionality that depends on this permission.
 //                }
                 return
             }
@@ -384,7 +387,7 @@ class MainActivity : AppCompatActivity() {
 
     //shows status of the downloading file
     private fun statusMessage(url: String, directory: File, status: Int): String {
-        val msg = when (status) {
+        return when (status) {
             DownloadManager.STATUS_FAILED -> "Download has been failed, please try again"
             DownloadManager.STATUS_PAUSED -> "Paused"
             DownloadManager.STATUS_PENDING -> "Pending"
@@ -394,7 +397,6 @@ class MainActivity : AppCompatActivity() {
             )
             else -> "There's nothing to download"
         }
-        return msg
     }
 
 
