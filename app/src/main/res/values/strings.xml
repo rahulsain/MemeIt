@@ -7,4 +7,5 @@
     <string name="swipe_up">Share Meme</string>
     <string name="swipe_down">Download Meme</string>
     <string name="swipe_exit">Click anywhere outside of the window to exit</string>
+    <string name="memes">Memes</string>
 </resources>
