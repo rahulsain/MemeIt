@@ -1,4 +1,4 @@
-package com.example.memeit
+package com.rahuls.memeit
 
 import android.content.Context
 import com.android.volley.Request

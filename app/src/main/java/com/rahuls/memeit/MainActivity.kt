@@ -1,4 +1,4 @@
-package com.example.memeit
+package com.rahuls.memeit
 
 import android.Manifest
 import android.annotation.TargetApi
@@ -133,10 +133,6 @@ class MainActivity : AppCompatActivity() {
 
         // Add the request to the RequestQueue.
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
-    }
-
-    fun nextMeme(view: View) {
-        loadMeme()
     }
 
     //download the image in cache
@@ -321,10 +317,11 @@ class MainActivity : AppCompatActivity() {
                     // permission was granted, yay!
                     // Download the Image
                     currentImageUrl?.let { downloadImage(it) }
-                } else {
+                }
+//                else {
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                }
+//                }
                 return
             }
             // Add other 'when' lines to check for other
@@ -386,7 +383,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     //shows status of the downloading file
-    private fun statusMessage(url: String, directory: File, status: Int): String? {
+    private fun statusMessage(url: String, directory: File, status: Int): String {
         val msg = when (status) {
             DownloadManager.STATUS_FAILED -> "Download has been failed, please try again"
             DownloadManager.STATUS_PAUSED -> "Paused"
