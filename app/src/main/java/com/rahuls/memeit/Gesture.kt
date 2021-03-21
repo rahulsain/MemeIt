@@ -1,9 +1,8 @@
-package com.example.memeit
+package com.rahuls.memeit
 
 import android.app.Activity
 import android.graphics.Point
 import android.os.Bundle
-import android.util.DisplayMetrics
 
 class Gesture : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
