@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                         isFirstResource: Boolean
                     ): Boolean {
                         progressBar.visibility = View.GONE
-                        shareButton.isEnabled = false
+//                        shareButton.isEnabled = false
                         return false
                     }
 
@@ -118,10 +118,10 @@ class MainActivity : AppCompatActivity() {
                         imageBitMap = resource
                         progressBar.visibility = View.GONE
 //                        shareButton.visibility = View.GONE
-                        shareButton.isEnabled = true
-                        shareButton.setOnClickListener {
-                            onSwipeTop()
-                        }
+//                        shareButton.isEnabled = false
+//                        shareButton.setOnClickListener {
+//                            onSwipeTop()
+//                        }
                         return false
                     }
 
