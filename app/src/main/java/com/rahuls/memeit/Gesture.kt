@@ -1,4 +1,4 @@
-package com.example.memeit
+package com.rahuls.memeit
 
 import android.app.Activity
 import android.graphics.Point
