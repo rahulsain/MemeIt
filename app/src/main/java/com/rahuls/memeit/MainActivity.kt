@@ -105,7 +105,6 @@ class MainActivity : AppCompatActivity() {
                         isFirstResource: Boolean
                     ): Boolean {
                         progressBar.visibility = View.GONE
-//                        shareButton.isEnabled = false
                         return false
                     }
 
@@ -118,11 +117,6 @@ class MainActivity : AppCompatActivity() {
                     ): Boolean {
                         imageBitMap = resource
                         progressBar.visibility = View.GONE
-//                        shareButton.visibility = View.GONE
-//                        shareButton.isEnabled = false
-//                        shareButton.setOnClickListener {
-//                            onSwipeTop()
-//                        }
                         return false
                     }
 
@@ -251,6 +245,7 @@ class MainActivity : AppCompatActivity() {
     //loads previous image
     internal fun onSwipeLeft() {
         Glide.with(this).asBitmap().load(previousImageUrl).into(memeImageView)
+        progressBar.visibility = View.GONE
     }
 
     //loads next image
