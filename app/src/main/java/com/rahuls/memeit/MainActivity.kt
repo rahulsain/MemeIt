@@ -12,12 +12,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
+import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -40,15 +39,36 @@ import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
 
+    private var isChecked: Boolean = false
     private lateinit var detector: GestureDetectorCompat
     private lateinit var imageBitMap: Bitmap
     private var previousImageUrl: String? = null
     private var currentImageUrl: String? = null
-    lateinit var mAdView: AdView
+    private var lCurrentImageUrl: String? = null
+    private var lPreviousImageUrl: String? = null
+    private lateinit var mAdView: AdView
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+
+        val onOffSwitch = findViewById<View>(R.id.switchBar) as SwitchCompat
+        onOffSwitch.setOnCheckedChangeListener { _ , isChecked ->
+            this.isChecked = isChecked
+            if (isChecked) {
+                // low resolution
+                Toast.makeText(this, "Less Data will be consumed", Toast.LENGTH_SHORT).show()
+                loadLowResolutionMeme()
+            } else {
+                // high resolution
+                Toast.makeText(this, "HD Quality Memes", Toast.LENGTH_SHORT).show()
+                loadMeme()
+            }
+        }
+
         //assuming that user run this app first time
         val prefs = getSharedPreferences("prefs", MODE_PRIVATE)
         val firstStart = prefs.getBoolean("firstStart", true)
@@ -74,6 +94,55 @@ class MainActivity : AppCompatActivity() {
         loadMeme()
     }
 
+
+    private fun loadLowResolutionMeme() {
+        // Instantiate the RequestQueue.
+        progressBar.visibility = View.VISIBLE
+        val url = "https://meme-api.herokuapp.com/gimme"
+        previousImageUrl = currentImageUrl
+        lPreviousImageUrl = lCurrentImageUrl
+
+        // Request a Json response from the provided URL.
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null, {
+                currentImageUrl = it.getString("url")
+                lCurrentImageUrl = it.optJSONArray("preview")?.getString(1)
+                Glide.with(this).asBitmap().load(lCurrentImageUrl).listener(object :
+                    RequestListener<Bitmap> {
+
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Bitmap>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        progressBar.visibility = View.GONE
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        model: Any?,
+                        target: Target<Bitmap>,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        imageBitMap = resource
+                        progressBar.visibility = View.GONE
+                        return false
+                    }
+
+                }).placeholder(R.drawable.placeholder_meme).into(memeImageView)
+            },
+            {
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
+                progressBar.visibility = View.GONE
+            })
+
+        // Add the request to the RequestQueue.
+        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
+    }
+
     //show One Time Alert Box guiding user about swipes functionality
     private fun showGesture() {
         startActivity(Intent(this@MainActivity, Gesture::class.java))
@@ -90,11 +159,14 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         val url = "https://meme-api.herokuapp.com/gimme"
         previousImageUrl = currentImageUrl
+        lPreviousImageUrl = lCurrentImageUrl
 
         // Request a Json response from the provided URL.
         val jsonObjectRequest = JsonObjectRequest(
-            Request.Method.GET, url, null, { response ->
-                currentImageUrl = response.getString("url")
+            Request.Method.GET, url, null, {
+                currentImageUrl = it.getString("url")
+                lCurrentImageUrl = it.optJSONArray("preview")?.getString(1)
+
                 Glide.with(this).asBitmap().load(currentImageUrl).listener(object :
                     RequestListener<Bitmap> {
 
@@ -120,10 +192,11 @@ class MainActivity : AppCompatActivity() {
                         return false
                     }
 
-                }).into(memeImageView)
+                }).placeholder(R.drawable.placeholder_meme).into(memeImageView)
             },
             {
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show()
+                progressBar.visibility = View.GONE
             })
 
         // Add the request to the RequestQueue.
@@ -184,8 +257,8 @@ class MainActivity : AppCompatActivity() {
     //decides in what direction the user has made a gesture
     inner class DiaryGestureListener : GestureDetector.SimpleOnGestureListener() {
 
-        private val SWIPE_THRESHOLD = 100
-        private val SWIPE_VELOCITY_THRESHOLD = 100
+        private val swipeThreshold = 100
+        private val swipeVelocityThreshold = 100
 
         override fun onFling(
             downEvent: MotionEvent?,
@@ -198,7 +271,7 @@ class MainActivity : AppCompatActivity() {
 
             return if (abs(diffX) > abs(diffY)) {
                 // this is a left or right swipe
-                if (abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                if (abs(diffX) > swipeThreshold && abs(velocityX) > swipeVelocityThreshold) {
                     if (diffX > 0) {
                         // right swipe
                         this@MainActivity.onSwipeLeft()
@@ -212,7 +285,7 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 // this is either a bottom or top swipe.
-                if (abs(diffY) > SWIPE_THRESHOLD && abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                if (abs(diffY) > swipeThreshold && abs(velocityY) > swipeVelocityThreshold) {
                     if (diffY > 0) {
                         this@MainActivity.onSwipeBottom()
                     } else {
@@ -244,13 +317,26 @@ class MainActivity : AppCompatActivity() {
 
     //loads previous image
     internal fun onSwipeLeft() {
-        Glide.with(this).asBitmap().load(previousImageUrl).into(memeImageView)
+        if (isChecked) {
+            // low resolution
+            Glide.with(this).asBitmap().load(lPreviousImageUrl).placeholder(R.drawable.placeholder_meme).into(memeImageView)
+        } else {
+            // high resolution
+            Glide.with(this).asBitmap().load(previousImageUrl).placeholder(R.drawable.placeholder_meme).into(memeImageView)
+        }
+
         progressBar.visibility = View.GONE
     }
 
     //loads next image
     internal fun onSwipeRight() {
-        loadMeme()
+        if (isChecked) {
+            // low resolution
+            loadLowResolutionMeme()
+        } else {
+            // high resolution
+            loadMeme()
+        }
     }
 
     //asking for permission
@@ -274,7 +360,7 @@ class MainActivity : AppCompatActivity() {
                 AlertDialog.Builder(this)
                     .setTitle("Permission required")
                     .setMessage("Permission required to save photos from the Web.")
-                    .setPositiveButton("Allow") { dialog, id ->
+                    .setPositiveButton("Allow") { _, _ ->
                         ActivityCompat.requestPermissions(
                             this,
                             arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
@@ -282,7 +368,7 @@ class MainActivity : AppCompatActivity() {
                         )
                         finish()
                     }
-                    .setNegativeButton("Deny") { dialog, id -> dialog.cancel() }
+                    .setNegativeButton("Deny") { dialog, _ -> dialog.cancel() }
                     .show()
             } else {
                 // No explanation needed, we can request the permission.
@@ -359,7 +445,7 @@ class MainActivity : AppCompatActivity() {
 
         val downloadId = downloadManager.enqueue(request)
         val query = DownloadManager.Query().setFilterById(downloadId)
-        Thread(Runnable {
+        Thread {
             var downloading = true
             while (downloading) {
                 val cursor: Cursor = downloadManager.query(query)
@@ -377,7 +463,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 cursor.close()
             }
-        }).start()
+        }.start()
     }
 
     //shows status of the downloading file
@@ -392,6 +478,19 @@ class MainActivity : AppCompatActivity() {
             )
             else -> "There's nothing to download"
         }
+    }
+
+    override fun onStop() {
+        Thread {
+            // This method must be called on a background thread.
+            Glide.get(this).clearDiskCache()
+        }.start()
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        Glide.get(this).clearMemory()
+        super.onDestroy()
     }
 
 
