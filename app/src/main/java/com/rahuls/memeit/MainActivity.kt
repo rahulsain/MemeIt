@@ -61,11 +61,9 @@ class MainActivity : AppCompatActivity() {
             if (isChecked) {
                 // low resolution
                 Toast.makeText(this, "Less Data will be consumed", Toast.LENGTH_SHORT).show()
-                loadLowResolutionMeme()
             } else {
                 // high resolution
                 Toast.makeText(this, "HD Quality Memes", Toast.LENGTH_SHORT).show()
-                loadMeme()
             }
         }
 
