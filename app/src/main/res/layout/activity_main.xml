@@ -21,8 +21,8 @@
             android:id="@+id/switchBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="180dp"
-            android:paddingEnd="0dp"
+            android:paddingStart="70dp"
+            android:paddingEnd="10dp"
             android:text="@string/switch_title"/>
 
     </androidx.appcompat.widget.Toolbar>

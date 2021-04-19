@@ -9,4 +9,9 @@
     <string name="swipe_exit">Click anywhere outside of the window to exit</string>
     <string name="memes">Memes</string>
     <string name="switch_title">Lite Mode</string>
+    <string name="exit_subreddit_mode">Exit Subreddit Mode</string>
+    <string name="subreddit_mode">Subreddit Mode</string>
+    <string name="lite_mode">Lite mode</string>
+    <string name="subreddit_name">Subreddit Name</string>
+    <string name="warning_checkbox">Don\'t show this warning again</string>
 </resources>

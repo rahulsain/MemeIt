@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/subreddit_mode"
+        android:id="@+id/open_subreddit"/>
+
+    <item android:title="@string/exit_subreddit_mode"
+        android:id="@+id/exit_subreddit"/>
+
+
+</menu>
