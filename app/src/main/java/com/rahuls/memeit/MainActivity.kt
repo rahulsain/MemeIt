@@ -1,6 +1,7 @@
 package com.rahuls.memeit
 
 import android.Manifest
+import android.R.attr.*
 import android.annotation.TargetApi
 import android.app.DownloadManager
 import android.content.Context
@@ -16,6 +17,7 @@ import android.text.InputType
 import android.view.*
 import android.widget.CheckBox
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -245,7 +247,7 @@ class MainActivity : AppCompatActivity() {
                     "It may also contain hate towards a country/gender/race/community/person\n\n" +
                     "By Accepting this, You will be fully responsible, and you cannot blame this app or developer by any means.\n\n" +
                     "By using this app, you are also abiding to Terms and Condition set by the company\n\n" +
-                    "Click Agree if you want to proceed if not press cancel"
+                    "Click Agree if you want to proceed or else press cancel"
         )
 
         mBuilder.setView(mView)
@@ -411,7 +413,11 @@ class MainActivity : AppCompatActivity() {
     //share image as .png format
     private fun onSwipeTop() {
         if(isGif)
-            Toast.makeText(this,"This feature is not supported!. Download and then share manually",Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                this,
+                "This feature is not supported!. Download and then share manually",
+                Toast.LENGTH_LONG
+            ).show()
         else
             downloadImageThenShare(imageBitMap)
 
@@ -433,13 +439,7 @@ class MainActivity : AppCompatActivity() {
 
     //loads next image
     internal fun onSwipeRight() {
-        if (isChecked) {
-            // low resolution
-            loadMeme(url)
-        } else {
-            // high resolution
-            loadMeme(url)
-        }
+        loadMeme(url)
     }
 
     //asking for permission
@@ -616,14 +616,25 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCustomDialogBox() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle("Title")
+        builder.setTitle("Title").setMessage("Subreddit should not be Locked or Private")
 
-        // Set up the input
+        val container = LinearLayout(this)
+        container.orientation = LinearLayout.VERTICAL
+        val lp = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        lp.setMargins(50, 0, 50, 0)
         val input = EditText(this)
-        // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        input.hint = "Enter Subreddit Name"
+        input.layoutParams = lp
+        input.gravity = Gravity.TOP or Gravity.START
+        input.setLines(1)
+        input.maxLines = 1
+        input.hint = "Enter Subreddit Name Eg:memes"
         input.inputType = InputType.TYPE_CLASS_TEXT
-        builder.setView(input)
+        container.addView(input, lp)
+
+        builder.setView(container)
 
         // Set up the buttons
         builder.setPositiveButton("OK") { _, _ ->
