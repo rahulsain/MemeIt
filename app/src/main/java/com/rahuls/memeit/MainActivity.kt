@@ -189,7 +189,6 @@ class MainActivity : AppCompatActivity() {
 
                     }).placeholder(R.drawable.gif_placeholder).into(memeImageView)
 
-                    progressBar.visibility = View.GONE
                     Toast.makeText(
                         this,
                         "Lite mode not supported for GIF Image, please wait gif is loading",

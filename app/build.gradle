@@ -10,8 +10,8 @@ android {
         applicationId "com.rahuls.memeit"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 5
-        versionName "4.0.1"
+        versionCode 6
+        versionName "4.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
