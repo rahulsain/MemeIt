@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Less Data will be consumed", Toast.LENGTH_SHORT).show()
             else
             // high resolution
-                Toast.makeText(this, "Quality has been set to High", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Image Quality has been set to High", Toast.LENGTH_SHORT).show()
 
         }
 
@@ -191,7 +191,7 @@ class MainActivity : AppCompatActivity() {
 
                     Toast.makeText(
                         this,
-                        "Lite mode not supported for GIF Image, please wait gif is loading",
+                        "Lite mode not supported for GIF Image, please wait while gif is loading",
                         Toast.LENGTH_LONG
                     ).show()
                 } else {
@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                 }
             },
             {
-                Toast.makeText(this, "Something went wrong! Try again", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Something went wrong! Check your internet connection or subreddit name. Try again", Toast.LENGTH_LONG).show()
                 progressBar.visibility = View.GONE
             })
 
@@ -602,7 +602,7 @@ class MainActivity : AppCompatActivity() {
             R.id.open_subreddit ->
                 showCustomDialogBox()
             R.id.exit_subreddit -> {
-                Toast.makeText(this, "Back to memes", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Back to default memes", Toast.LENGTH_SHORT).show()
                 url = "https://meme-api.herokuapp.com/gimme/"
                 loadMeme(url)
             }
@@ -615,7 +615,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCustomDialogBox() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-        builder.setTitle("Title").setMessage("Subreddit should not be Locked or Private")
+        builder.setTitle("Enter Subreddit Name").setMessage("Subreddit should not be Locked or Private")
 
         val container = LinearLayout(this)
         container.orientation = LinearLayout.VERTICAL
@@ -629,7 +629,7 @@ class MainActivity : AppCompatActivity() {
         input.gravity = Gravity.TOP or Gravity.START
         input.setLines(1)
         input.maxLines = 1
-        input.hint = "Enter Subreddit Name Eg:memes"
+        input.hint = "multiwall"
         input.inputType = InputType.TYPE_CLASS_TEXT
         container.addView(input, lp)
 
