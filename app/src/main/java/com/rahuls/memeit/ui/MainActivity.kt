@@ -1,4 +1,4 @@
-package com.rahuls.memeit
+package com.rahuls.memeit.ui
 
 import android.Manifest
 import android.R.attr.*
@@ -37,6 +37,8 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.rahuls.memeit.MySingleton
+import com.rahuls.memeit.R
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.FileOutputStream
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private var isGif: Boolean = false
     private lateinit var gifBitMap: GifDrawable
-    private var notSafeForWorkstatus: Boolean = true
+    private var notSafeForWorkStatus: Boolean = true
     private lateinit var author: String
     private lateinit var mTitle: String
     private lateinit var subreddit: String
@@ -124,7 +126,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadMeme(apiURL: String) {
         // Instantiate the RequestQueue.
         progressBar.visibility = View.VISIBLE
-        if (notSafeForWorkstatus || !notSafeForWork) {
+        if (notSafeForWorkStatus || !notSafeForWork) {
             previousImageUrl = currentImageUrl
             lPreviousImageUrl = lCurrentImageUrl
         }
@@ -145,7 +147,7 @@ class MainActivity : AppCompatActivity() {
                 var memeUrl = if (isChecked) lCurrentImageUrl else currentImageUrl
 
                 if (notSafeForWork) {
-                    if (!notSafeForWorkstatus) {
+                    if (!notSafeForWorkStatus) {
                         //user does not want to see nsfw content
                         memeUrl = R.drawable.placeholder_meme.toString()
 
@@ -252,12 +254,12 @@ class MainActivity : AppCompatActivity() {
         mBuilder.setView(mView)
 
         mBuilder.setPositiveButton("Agree") { dialogInterface, _ ->
-            notSafeForWorkstatus = true
+            notSafeForWorkStatus = true
             dialogInterface.dismiss()
         }
         mBuilder.setNegativeButton("Cancel") { dialogInterface, _ ->
             loadMeme("https://meme-api.herokuapp.com/gimme/")
-            notSafeForWorkstatus = false
+            notSafeForWorkStatus = false
             dialogInterface.cancel()
         }
 

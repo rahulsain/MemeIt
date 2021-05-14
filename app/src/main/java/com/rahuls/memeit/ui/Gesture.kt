@@ -1,8 +1,9 @@
-package com.rahuls.memeit
+package com.rahuls.memeit.ui
 
 import android.app.Activity
 import android.graphics.Point
 import android.os.Bundle
+import com.rahuls.memeit.R
 
 class Gesture : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {

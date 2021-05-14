@@ -18,7 +18,7 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2470290877560956~2735396201" />
 
-        <activity android:name="com.rahuls.memeit.MainActivity">
+        <activity android:name="com.rahuls.memeit.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +27,7 @@
         </activity>
 
         <activity
-            android:name="com.rahuls.memeit.Gesture"
+            android:name="com.rahuls.memeit.ui.Gesture"
             android:theme="@style/Theme.CustomTheme">
 
         </activity>
