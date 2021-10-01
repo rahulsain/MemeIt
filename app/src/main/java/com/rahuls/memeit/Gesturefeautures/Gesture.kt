@@ -1,4 +1,4 @@
-package com.rahuls.memeit.ui
+package com.rahuls.memeit.Gesturefeautures
 
 import android.app.Activity
 import android.graphics.Point

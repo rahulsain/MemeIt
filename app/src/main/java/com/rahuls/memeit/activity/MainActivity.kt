@@ -1,4 +1,4 @@
-package com.rahuls.memeit.ui
+package com.rahuls.memeit.activity
 
 import android.Manifest
 import android.R.attr.*
@@ -37,8 +37,9 @@ import com.bumptech.glide.request.target.Target
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import com.rahuls.memeit.MySingleton
+import com.rahuls.memeit.Gesturefeautures.Gesture
 import com.rahuls.memeit.R
+import com.rahuls.memeit.apicall.MySingleton
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.io.FileOutputStream
@@ -498,6 +499,7 @@ class MainActivity : AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE -> {
                 // If request is cancelled, the result arrays are empty.
@@ -600,6 +602,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val fileName = "MemeIt-${System.currentTimeMillis()}.png"
+        val filePath = "${this.cacheDir}/$fileName"
         when (item.itemId) {
             R.id.open_subreddit ->
                 showCustomDialogBox()
@@ -608,6 +612,10 @@ class MainActivity : AppCompatActivity() {
                 url = "https://meme-api.herokuapp.com/gimme/"
                 loadMeme(url)
             }
+            R.id.share_meme->{
+                shareImage(this,File(filePath))
+            }
+
             else -> {
                 Toast.makeText(this, "Coming Soon", Toast.LENGTH_SHORT).show()
             }
