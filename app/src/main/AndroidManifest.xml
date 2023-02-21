@@ -29,10 +29,12 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-2470290877560956~2735396201" />
 
-        <activity android:name=".activity.MainActivity" >
+        <activity android:name=".activity.MainActivity"
+            android:exported="false">
 
         </activity>
         <activity
+            android:exported="false"
             android:name=".Gesturefeautures.Gesture"
             android:theme="@style/Theme.CustomTheme" >
         </activity>
