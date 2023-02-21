@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
         //listens for gesture made by user
         detector = GestureDetectorCompat(this, DiaryGestureListener())
         //calls the api
-        url = "https://meme-api.herokuapp.com/gimme/"
+        url = "https://meme-api.com/gimme/"
         loadMeme(url)
     }
 
@@ -258,7 +258,7 @@ class MainActivity : AppCompatActivity() {
             dialogInterface.dismiss()
         }
         mBuilder.setNegativeButton("Cancel") { dialogInterface, _ ->
-            loadMeme("https://meme-api.herokuapp.com/gimme/")
+            loadMeme("https://meme-api.com/gimme/")
             notSafeForWorkStatus = false
             dialogInterface.cancel()
         }
@@ -550,10 +550,11 @@ class MainActivity : AppCompatActivity() {
             while (downloading) {
                 val cursor: Cursor = downloadManager.query(query)
                 cursor.moveToFirst()
-                if (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)) == DownloadManager.STATUS_SUCCESSFUL) {
+                val statusColumnIndex = cursor.getColumnIndex(DownloadManager.COLUMN_STATUS)
+                if (statusColumnIndex >= 0 && cursor.getInt(statusColumnIndex) == DownloadManager.STATUS_SUCCESSFUL) {
                     downloading = false
                 }
-                val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                val status = cursor.getInt(statusColumnIndex)
                 msg = statusMessage(url, directory, status)
                 if (msg != lastMsg) {
                     this.runOnUiThread {
@@ -605,7 +606,7 @@ class MainActivity : AppCompatActivity() {
                 showCustomDialogBox()
             R.id.exit_subreddit -> {
                 Toast.makeText(this, "Back to default memes", Toast.LENGTH_SHORT).show()
-                url = "https://meme-api.herokuapp.com/gimme/"
+                url = "https://meme-api.com/gimme/"
                 loadMeme(url)
             }
             else -> {
@@ -640,7 +641,7 @@ class MainActivity : AppCompatActivity() {
         // Set up the buttons
         builder.setPositiveButton("OK") { _, _ ->
             // Here you get get input text from the Edittext
-            url = "https://meme-api.herokuapp.com/gimme/" + input.text.toString()
+            url = "https://meme-api.com/gimme/" + input.text.toString()
         }
         builder.setNegativeButton(
             "Cancel"
