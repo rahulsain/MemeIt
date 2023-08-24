@@ -353,12 +353,12 @@ class MainActivity : AppCompatActivity() {
 
         override fun onFling(
             downEvent: MotionEvent?,
-            moveEvent: MotionEvent?,
+            moveEvent: MotionEvent,
             velocityX: Float,
             velocityY: Float
         ): Boolean {
-            val diffX = moveEvent?.x?.minus(downEvent!!.x) ?: 0.0F
-            val diffY = moveEvent?.y?.minus(downEvent!!.y) ?: 0.0F
+            val diffX = moveEvent.x.minus(downEvent!!.x)
+            val diffY = moveEvent.y.minus(downEvent.y)
 
             return if (abs(diffX) > abs(diffY)) {
                 // this is a left or right swipe
@@ -390,7 +390,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        override fun onLongPress(e: MotionEvent?) {
+        override fun onLongPress(e: MotionEvent) {
             showMemeDetail()
             super.onLongPress(e)
         }
